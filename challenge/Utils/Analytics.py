@@ -7,16 +7,17 @@ warnings.filterwarnings('ignore')
 # Numeros de vuelos por aerolinea.
 
 
-def flightsByAirLine(data: pd.DataFrame):
+def flightsByAirLine(data: pd.DataFrame, airLine):
     flights_by_airline = data['OPERA'].value_counts()
-    plt.figure(figsize=(10, 2))
-    sns.set(style="darkgrid")
-    sns.barplot(x=flights_by_airline.index, y=flights_by_airline.values, alpha=0.9)
-    plt.title('Flights by Airline')
-    plt.ylabel('Flights', fontsize=12)
-    plt.xlabel('Airline', fontsize=12)
-    plt.xticks(rotation=90)
-    plt.show()
+    return flights_by_airline[airLine]
+    # plt.figure(figsize=(10, 2))
+    # sns.set(style="darkgrid")
+    # sns.barplot(x=flights_by_airline.index, y=flights_by_airline.values, alpha=0.9)
+    # plt.title('Flights by Airline')
+    # plt.ylabel('Flights', fontsize=12)
+    # plt.xlabel('Airline', fontsize=12)
+    # plt.xticks(rotation=90)
+    # plt.show()
 
 #Numero de vuelos por dia.
 

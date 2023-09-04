@@ -1,2 +1,5 @@
 /__MACOSX
 /reports
+/challenge/__pycache__
+.coverage
+/test/__pycache__
