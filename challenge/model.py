@@ -149,8 +149,6 @@ class DelayModel:
             axis=1
         )
         
-        print(features)
-       
         if target_column:
             target = data[[target_column]]
         else:
