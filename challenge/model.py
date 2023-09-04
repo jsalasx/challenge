@@ -4,7 +4,6 @@ import xgboost as xgb
 from challenge.Utils.GetPeriodDayFunction import get_period_day
 from challenge.Utils.IsHighSeasionFunction import is_high_season
 from challenge.Utils.GetMinDiffFunction import get_min_diff
-from challenge.Utils.GetRateFromColumnFunction import get_rate_from_column
 from typing import Tuple, Union, List
 import pandas as pd
 import numpy as np
@@ -126,3 +125,43 @@ class DelayModel:
         xgboost_y_preds = self._model.predict(features)
         xgboost_y_preds = [1 if y_pred > 0.5 else 0 for y_pred in xgboost_y_preds]
         return xgboost_y_preds
+
+    def preprocessApi(self, data: pd.DataFrame, target_column: str = None):
+        # OK
+        data['period_day'] = data['Fecha-I'].apply(get_period_day)
+        # OK
+        data['high_season'] = data['Fecha-I'].apply(is_high_season)
+        # OK
+        data['min_diff'] = data.apply(get_min_diff, axis=1)
+        threshold_in_minutes = 15
+        # OK
+        data['delay'] = np.where(
+            data['min_diff'] > threshold_in_minutes, 1, 0)
+
+        #training_data = shuffle(
+        #     data[['OPERA', 'MES', 'TIPOVUELO', 'delay']], random_state=111)
+        dataAux = data[["OPERA", "TIPOVUELO", "MES", "delay"]]
+
+        features = pd.concat([
+            pd.get_dummies(dataAux['OPERA'], prefix='OPERA'),
+            pd.get_dummies(dataAux['TIPOVUELO'], prefix='TIPOVUELO'),
+            pd.get_dummies(dataAux['MES'], prefix='MES')],
+            axis=1
+        )
+        
+        print(features)
+       
+        if target_column:
+            target = data[[target_column]]
+        else:
+            target = data[["delay"]]
+
+        if target_column:
+            return features, target
+        else:
+            x_train2, x_test2, y_train2, y_test2 = train_test_split(
+                features, target, test_size=0.01, random_state=42)
+            # xgb_model_2 = xgb.XGBClassifier(
+            # random_state=1, learning_rate=0.01, scale_pos_weight=4.6)
+            self._model.fit(x_train2, y_train2)
+            return features
