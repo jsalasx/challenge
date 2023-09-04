@@ -1,12 +1,11 @@
-from GetPeriodDayFunction import get_period_day
+from challenge.GetPeriodDayFunction import get_period_day
+from challenge.IsHighSeasionFunction import is_high_season
+from challenge.GetMinDiffFunction import get_min_diff
+from challenge.GetRateFromColumnFunction import get_rate_from_column
 import pandas as pd
-from typing import Tuple, Union, List
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import warnings
-from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.utils import shuffle
 from sklearn.metrics import confusion_matrix, classification_report
@@ -17,166 +16,18 @@ warnings.filterwarnings('ignore')
 data = pd.read_csv('../data/data.csv')
 #data.info()
 
-# Numeros de vuelos por aerolinea.
-# flights_by_airline = data['OPERA'].value_counts()
-# plt.figure(figsize=(10, 2))
-# sns.set(style="darkgrid")
-# sns.barplot(x=flights_by_airline.index, y=flights_by_airline.values, alpha=0.9)
-# plt.title('Flights by Airline')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Airline', fontsize=12)
-# plt.xticks(rotation=90)
-# plt.show()
-
-# Numero de vuelos por dia.
-# flights_by_day = data['DIA'].value_counts()
-# plt.figure(figsize=(10, 2))
-# sns.set(style="darkgrid")
-# sns.barplot(x=flights_by_day.index, y=flights_by_day.values,
-#             color='lightblue', alpha=0.8)
-# plt.title('Flights by Day')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Day', fontsize=12)
-# plt.xticks(rotation=90)
-# plt.show()
-
-# Numero de vuelos por mes 
-# |`MES`|Número del mes de operación del vuelo.|
-# flights_by_month = data['MES'].value_counts()
-# plt.figure(figsize=(10, 2))
-# sns.set(style="darkgrid")
-# sns.barplot(x=flights_by_month.index, y=flights_by_month.values,
-#             color='lightblue', alpha=0.8)
-# plt.title('Flights by Month')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Month', fontsize=12)
-# plt.xticks(rotation=90)
-# plt.show()
-
-# Vuelos por dia de la semana
-# flights_by_day_in_week = data['DIANOM'].value_counts()
-# days = [
-#     flights_by_day_in_week.index[2],
-#     flights_by_day_in_week.index[5],
-#     flights_by_day_in_week.index[4],
-#     flights_by_day_in_week.index[1],
-#     flights_by_day_in_week.index[0],
-#     flights_by_day_in_week.index[6],
-#     flights_by_day_in_week.index[3]
-# ]
-# values_by_day = [
-#     flights_by_day_in_week.values[2],
-#     flights_by_day_in_week.values[5],
-#     flights_by_day_in_week.values[4],
-#     flights_by_day_in_week.values[1],
-#     flights_by_day_in_week.values[0],
-#     flights_by_day_in_week.values[6],
-#     flights_by_day_in_week.values[3]
-# ]
-# plt.figure(figsize=(10, 2))
-# sns.set(style="darkgrid")
-# sns.barplot(x=days, y=values_by_day, color='lightblue', alpha=0.8)
-# plt.title('Flights by Day in Week')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Day in Week', fontsize=12)
-# plt.xticks(rotation=90)
-# plt.show()
-
-# Vuelos por tipo internacional o nacional
-# flights_by_type = data['TIPOVUELO'].value_counts()
-# sns.set(style="darkgrid")
-# plt.figure(figsize=(10, 2))
-# sns.barplot(x=flights_by_type.index, y=flights_by_type.values, alpha=0.9)
-# plt.title('Flights by Type')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Type', fontsize=12)
-# plt.show()
-
-# Vuelos por cuidad de destino
-# flight_by_destination = data['SIGLADES'].value_counts()
-# plt.figure(figsize=(10, 2))
-# sns.set(style="darkgrid")
-# sns.barplot(x=flight_by_destination.index,
-#             y=flight_by_destination.values, color='lightblue', alpha=0.8)
-# plt.title('Flight by Destination')
-# plt.ylabel('Flights', fontsize=12)
-# plt.xlabel('Destination', fontsize=12)
-# plt.xticks(rotation=90)
-
-# plt.show()
-
 #OK
-
-
-
 data['period_day'] = data['Fecha-I'].apply(get_period_day)
-
 #OK
-def is_high_season(fecha):
-    fecha_año = int(fecha.split('-')[0])
-    fecha = datetime.strptime(fecha, '%Y-%m-%d %H:%M:%S')
-    range1_min = datetime.strptime(
-        '15-Dec', '%d-%b').replace(year=fecha_año, hour=00, minute=00, second=00)
-    range1_max = datetime.strptime(
-        '31-Dec', '%d-%b').replace(year=fecha_año, hour=23, minute=59, second=59)
-    range2_min = datetime.strptime(
-        '1-Jan', '%d-%b').replace(year=fecha_año, hour=00, minute=00, second=00)
-    range2_max = datetime.strptime(
-        '3-Mar', '%d-%b').replace(year=fecha_año, hour=23, minute=59, second=59)
-    range3_min = datetime.strptime(
-        '15-Jul', '%d-%b').replace(year=fecha_año, hour=00, minute=00, second=00)
-    range3_max = datetime.strptime(
-        '31-Jul', '%d-%b').replace(year=fecha_año, hour=23, minute=59, second=59)
-    range4_min = datetime.strptime(
-        '11-Sep', '%d-%b').replace(year=fecha_año, hour=00, minute=00, second=00)
-    range4_max = datetime.strptime(
-        '30-Sep', '%d-%b').replace(year=fecha_año, hour=23, minute=59, second=59)
-
-    if ((fecha >= range1_min and fecha <= range1_max) or
-        (fecha >= range2_min and fecha <= range2_max) or
-        (fecha >= range3_min and fecha <= range3_max) or
-            (fecha >= range4_min and fecha <= range4_max)):
-        return 1
-    else:
-        return 0  
-
 data['high_season'] = data['Fecha-I'].apply(is_high_season)
 #OK
-def get_min_diff(data):
-    fecha_o = datetime.strptime(data['Fecha-O'], '%Y-%m-%d %H:%M:%S')
-    fecha_i = datetime.strptime(data['Fecha-I'], '%Y-%m-%d %H:%M:%S')
-    min_diff = ((fecha_o - fecha_i).total_seconds())/60
-    return np.round(min_diff,2)
-
-
 data['min_diff'] = data.apply(get_min_diff, axis=1)
 threshold_in_minutes = 15
 #OK
 data['delay'] = np.where(data['min_diff'] > threshold_in_minutes, 1, 0)
 
 
-
-def get_rate_from_column(data, column):
-    delays = {}
-    for _, row in data.iterrows():
-        if row['delay'] == 1:
-            if row[column] not in delays:
-                delays[row[column]] = 1
-            else:
-                delays[row[column]] += 1
-    total = data[column].value_counts().to_dict()
-
-    rates = {}
-    for name, total in total.items():
-        if name in delays:
-            rates[name] = round(delays[name] / total, 2)
-        else:
-            rates[name] = 0
-
-    return pd.DataFrame.from_dict(data=rates, orient='index', columns=['Tasa (%)'])
-
-
-# destination_rate = get_rate_from_column(data, 'SIGLADES')
+#destination_rate = get_rate_from_column(data, 'SIGLADES')
 # destination_rate_values = data['SIGLADES'].value_counts().index
 # plt.figure(figsize=(20, 5))
 # sns.set(style="darkgrid")
@@ -267,6 +118,25 @@ def get_rate_from_column(data, column):
 # plt.ylim(0, 0.5)
 # plt.show()
 
+
+training_data = shuffle(
+    data[['OPERA', 'MES', 'TIPOVUELO', 'SIGLADES', 'DIANOM', 'delay']], random_state=111)
+
+features = pd.concat([
+    pd.get_dummies(data['OPERA'], prefix='OPERA'),
+    pd.get_dummies(data['TIPOVUELO'], prefix='TIPOVUELO'),
+    pd.get_dummies(data['MES'], prefix='MES')],
+    axis=1
+)
+target = data['delay']
+
+x_train, x_test, y_train, y_test = train_test_split(
+    features, target, test_size=0.33, random_state=42)
+
+print(f"train shape: {x_train.shape} | test shape: {x_test.shape}")
+
+y_train.value_counts('%')*100
+y_test.value_counts('%')*100
 
 # class DelayModel:
 
