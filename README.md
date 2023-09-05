@@ -71,6 +71,18 @@ Bienvenidos al despliego del predictor de retraso en vuelos
 
 # Payload para consultar si vuelo se puede retrasar
 
+
+```
+{
+   "flights": [
+                {
+                    "OPERA": "Aerolineas Argentinas", 
+                    "TIPOVUELO": "N", 
+                    "MES": 1
+                }
+            ]
+}
+```
 # Endpoint de estado de la aplicacion 
 
   ``` http://EXTERNAL-IP/health ```
