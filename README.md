@@ -17,34 +17,67 @@ Bienvenidos al despliego del predictor de retraso en vuelos
 
     ```docker build -t fastapi .```
 
-2. Crear un Cluster de Kubernetes en Google Cloud GKE. puede guiarse en este tutorial
-    [Guia GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-regional-cluster?hl=es-419)
+2. Crear un Cluster de Kubernetes en Google Cloud GKE. Puede guiarse en este tutorial
+
+
+    ```[Guia GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-regional-cluster?hl=es-419)```
 
 3. Crear un contenedor de imagenes ('Artifact Registry')
-    [Guia Artifact Registry](https://cloud.google.com/artifact-registry?hl=es-419)
+
+
+    ```[Guia Artifact Registry](https://cloud.google.com/artifact-registry?hl=es-419)```
 
 4. Autenticarse en Google Console.
 
 5. Tagear la imagen de docker.
-    '''
+
+
+    ```
     docker tag fastapi us-east1-docker.pkg.dev/clusterla/latamimages/fastapi:latest
-    '''
+    ```
+
 
 6. Subirla al Artifact Registry
-    '''
+
+    ```
     docker tag fastapi us-east1-docker.pkg.dev/clusterla/latamimages/fastapi:latest
-    '''
+    ```
 
 7. Crear el namespace en Kubernetes
-    kubectl apply -f namespace.yml
+
+
+    ```kubectl apply -f namespace.yml```
 8. Crear el deployment en Kubernetes
-    kubectl apply -f deployment.yml
+
+
+    ```kubectl apply -f deployment.yml```
 
 9. Crear el service en Kubernetes
-    kubectl apply -f service.yml
+
+
+    ```kubectl apply -f service.yml```
 
 10. Verificar la ip publica que tiene el servicio.  (EXTERNAL-IP)
-    kubectñ get services mi-aplicacion-servicio -n latamairlines
+
+
+    ```kubectñ get services mi-aplicacion-servicio -n latamairlines```
+
+## Uso
+
+# Endpoint para consultar si un vuelo se puede retrasar
+
+
+  ``` http://EXTERNAL-IP/predict ```
+
+# Payload para consultar si vuelo se puede retrasar
+
+# Endpoint de estado de la aplicacion 
+
+  ``` http://EXTERNAL-IP/health ```
+
+
+
+
 
 
 
