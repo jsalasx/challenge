@@ -2,7 +2,7 @@
 
 ## Descripción general
 
-Bienvenidos al despliegue del predictor de retraso en vuelos
+Bienvenidos al despliegue del predictor de retraso en vuelos con el uso de Google Kubernetes Engine y Artifact Registry de Google Cloud y Python 3.9.
 
 ## Requerimientos 
     1. Python 3.9
@@ -33,7 +33,7 @@ Bienvenidos al despliegue del predictor de retraso en vuelos
     [Guia Artifact Registry](https://cloud.google.com/artifact-registry?hl=es-419)
     ```
 
-4. Autenticarse en Google Console.
+4. Autenticarse en Google Console CLI gcloud [Guia](https://cloud.google.com/docs/authentication/gcloud?hl=es-419).
 
 5. Tagear la imagen de docker.
 
