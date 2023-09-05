@@ -6,8 +6,15 @@ from sklearn.utils import shuffle
 from fastapi.responses import JSONResponse
 from fastapi import Request, status
 from fastapi.exceptions import RequestValidationError
+import joblib
 app = fastapi.FastAPI()
 
+model = DelayModel()
+data = pd.read_csv(filepath_or_buffer="./data/data.csv")
+features = model.preprocess(
+    data=data
+)
+joblib.dump(model._model, 'trained_model.pkl')
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -31,11 +38,7 @@ async def post_predict(input: FlightData) -> dict:
         pd.get_dummies(predict_df['MES'], prefix='MES')],
         axis=1
     )
-    model = DelayModel()
-    data = pd.read_csv(filepath_or_buffer="./data/data.csv")
-    features = model.preprocessApi(
-        data=data
-    )
+    
     expected_features = features.columns.tolist()
     predict_df = predict_df.reindex(columns=expected_features).fillna(0)
     predicted_targets = model.predict(
