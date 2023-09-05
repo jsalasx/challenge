@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  fastapi_1:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    ports:
+      - "8001:8000"
+
+  fastapi_2:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    ports:
+      - "8002:8000"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
+      - "8003:80"
+    depends_on:
+      - fastapi_1
+      - fastapi_2
