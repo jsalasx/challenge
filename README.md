@@ -10,10 +10,10 @@ Bienvenidos al despliego del predictor de retraso en vuelos
     3. Kubernetes
 
 ## Pasos para el despliegue
-# Todo ejecutar en la carpeta o directorio raiz del proyecto
+### Todo ejecutar en la carpeta o directorio raiz del proyecto
 
 1. Crear la imagen de docker del proyecto, si adiciona alguna libreria incluirla en requirement.txt
-    'docker build -t fastapi .'
+    ```docker build -t fastapi .```
 
 2. Crear un Cluster de Kubernetes en Google Cloud GKE. puede guiarse en este tutorial
     [Guia GKE](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-regional-cluster?hl=es-419)
