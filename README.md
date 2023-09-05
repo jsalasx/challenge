@@ -13,6 +13,8 @@ Bienvenidos al despliego del predictor de retraso en vuelos
 ### Todo ejecutar en la carpeta o directorio raiz del proyecto
 
 1. Crear la imagen de docker del proyecto, si adiciona alguna libreria incluirla en requirement.txt
+
+
     ```docker build -t fastapi .```
 
 2. Crear un Cluster de Kubernetes en Google Cloud GKE. puede guiarse en este tutorial
