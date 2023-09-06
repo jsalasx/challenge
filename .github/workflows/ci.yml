@@ -1,5 +1,4 @@
-name: Deploy Nginx
-
+name: Deploy develop
 on:
   push:
     branches:
