@@ -13,4 +13,4 @@ pytest-cov~=2.12.1
 mockito~=1.2.2
 matplotlib~=3.7.2
 seaborn~=0.12.2
-request~=2.25.1
+requests~=2.25.1
