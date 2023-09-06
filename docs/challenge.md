@@ -102,7 +102,9 @@ Bienvenidos al despliegue del predictor de retraso en vuelos con el uso de Googl
   ``` http://EXTERNAL-IP/health ```
 
 
+## CI/CD
 
+Se intento realizar sin exito la autenticacion de GKE en Github Actions.
 
 
 
