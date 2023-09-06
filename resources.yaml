@@ -9,7 +9,7 @@ metadata:
   name: api
   namespace: latamairlines
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: api
@@ -20,8 +20,15 @@ spec:
     spec:
       containers:
       - name: api
-        image: fastapi:latest
+        image: us-east1-docker.pkg.dev/clusterla/latamimages/fastapi:latest
         imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "1250m"
+          limits:
+            memory: "1024Mi"
+            cpu: "1500m"
         ports:
         - containerPort: 8000
 ---
