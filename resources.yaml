@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: latamairlines
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: latamairlines
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: fastapi:v1
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-aplicacion-servicio
+  namespace: latamairlines
+spec:
+  type: LoadBalancer
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
