@@ -27,7 +27,7 @@ async def general_exception_handler(request: Request, exc: Exception):
 @app.get("/health", status_code=200)
 async def get_health() -> dict:
     return {
-        "status": "OK3 papito lindo"
+        "status": "OK3 papito lindo!!"
     }
 
 @app.post("/predict", status_code=200)

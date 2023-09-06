@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
       - name: api
-        image: fastapi:v1
-        imagePullPolicy: Never
+        image: fastapi:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
 ---
