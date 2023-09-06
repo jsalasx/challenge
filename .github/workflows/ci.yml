@@ -25,8 +25,8 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GKE_PROJECT }}
       run: |
         gcloud auth configure-docker us-east1-docker.pkg.dev
-        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/latamimages/fastapi:latest .
-        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/latamimages/fastapi:latest
+        docker build -t us-east1-docker.pkg.dev/$GOOGLE_PROJECT/latamimages/fastapi:latest .
+        docker push us-east1-docker.pkg.dev/$GOOGLE_PROJECT/latamimages/fastapi:latest
 
     - name: deploy to gke
       env:
