@@ -34,4 +34,5 @@ jobs:
       run: |
         gcloud container clusters get-credentials autopilot-cluster-1 --region us-central1
         sed -i "s/GOOGLE_PROJECT/$GOOGLE_PROJECT/g" resources.yaml
+        kubectl delete deployment api -n latamairlines
         kubectl apply -f resources.yaml

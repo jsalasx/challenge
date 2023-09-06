@@ -104,7 +104,7 @@ Bienvenidos al despliegue del predictor de retraso en vuelos con el uso de Googl
 
 ## CI/CD
 
-Se intento realizar sin exito la autenticacion de GKE en Github Actions.
+Cada que se hace push a develop/main se realiza la sincronización con el contenedor de imagenes (Artifact Registry) demora alrededor de 15 minutos en desplegarse la nueva version en la misma (EXTERNAL-IP).
 
 
 
