@@ -106,6 +106,7 @@ Bienvenidos al despliegue del predictor de retraso en vuelos con el uso de Googl
 
 Cada que se hace push a develop/main se realiza la sincronización con el contenedor de imagenes (Artifact Registry) demora alrededor de 15 minutos en desplegarse la nueva version en la misma (EXTERNAL-IP).
 
+### Nota. Seria factible la creacion de otro cluster para develop.
 
 
 
